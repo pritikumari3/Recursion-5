@@ -1,0 +1,155 @@
+1.
+import java.util.*;
+import java.util.Scanner;
+public class Test{
+        static int level = -1;
+        public static void main(String[] args){
+                Scanner scn = new Scanner(System.in);
+                System.out.println("Enter the dimensions of the matrix: ");
+                int m = scn.nextInt();
+                int n = scn.nextInt();
+                int sum = 0;
+                int i = 0;
+                int j = 0;
+               System.out.println(NumberOfPaths(m , n , i , j));
+        }
+        public static int NumberOfPaths(int m , int n , int i , int j){
+                if(i >= m || j >= n)
+                        return 0;
+                         if(i == m - 1 && j == n - 1)
+                        return 1;
+
+                return NumberOfPaths(m , n , i + 1 , j) + NumberOfPaths(m , n , i , j + 1);
+        }
+}
+
+2.
+import java.util.*;
+import java.util.Scanner;
+public class Test{
+        static int level = -1;
+        public static void main(String[] args){
+                Scanner scn = new Scanner(System.in);
+                System.out.println("Enter the length of array: ");
+                int n = scn.nextInt();
+                int[] arr = new int[n];
+                System.out.println("Enter the elements of array: ");
+                for(int i = 0; i < n; i++){
+                        arr[i] = scn.nextInt();
+                }
+                printTriangle(arr);
+        }
+        public static void printTriangle(int[] arr) {
+                if (arr.length < 1)
+                        return;
+                int[] temp = new int[arr.length - 1];
+                for (int i = 0; i < arr.length - 1; i++) {
+                        int x = arr[i] + arr[i + 1];
+                        temp[i] = x;
+                }
+                
+                printTriangle(temp);
+               
+                System.out.println(Arrays.toString(arr));
+        }
+}
+
+3.
+import java.util.*;
+import java.util.Scanner;
+public class Test{
+        static int level = -1;
+        public static void main(String[] args){
+                Scanner scn = new Scanner(System.in);
+                System.out.println("Enter the length of array: ");
+                int n = scn.nextInt();
+                int[] arr = new int[n];
+                System.out.println("Enter the elements of array: ");
+                for(int i = 0; i < n; i++){
+                        arr[i] = scn.nextInt();
+                }
+                System.out.println("Enter r: ");
+                int r = scn.nextInt();
+                printCombination(arr, n, r);
+        }
+        public static void printCombination(int[] arr, int n, int r) {
+               
+                int data[]=new int[r];
+                
+                combination(arr, n, r, 0, data, 0);
+        }
+        public static void combination(int[] arr, int n, int r, int index, int[] data, int i) {
+                
+                if (index == r) {
+                        for (int j=0; j<r; j++)
+                                System.out.print(data[j]+" ");
+                        System.out.println("");
+                        return;
+                }
+                
+                if (i >= n)
+                        return;
+                
+                data[index] = arr[i];
+                combination(arr, n, r, index+1, data, i+1);
+                
+                combination(arr, n, r, index, data, i+1);
+        }
+        
+      4.
+      import java.util.*;
+import java.util.Scanner;
+public class Test{
+        public static void main(String[] args){
+                Scanner scn = new Scanner(System.in);
+                System.out.println("Enter the length of both the arrays: ");
+                int m = scn.nextInt();
+                int n = scn.nextInt();
+                int[] A = new int[m];
+                int[] B = new int[n];
+                System.out.println("Enter the elements of first array: ");
+                for(int i = 0; i < m; i++){
+                        A[i] = scn.nextInt();
+                }
+                System.out.println("Enter the elements of second array: ");
+                for(int i = 0; i < n; i++){
+                        B[i] = scn.nextInt();
+                }
+                int[] C = new int[m + n];
+                generate(A, B, C, 0, 0, m, n, 0, true);
+            }
+            public static void generate(int[] A, int[] B, int[] C, int i, int j, int m, int n, int len, boolean flag){
+                if (flag) {
+                        
+                        if (len != 0) {
+                                printArr(C, len + 1);
+                        }
+                        
+                        for (int k = i; k < m; k++) {
+                                if (len == 0) {     
+                                        C[len] = A[k];
+                                        
+                                        generate(A, B, C, k + 1, j, m, n, len, !flag);
+                                }
+                                else if (A[k] > C[len]) {
+                                        C[len + 1] = A[k];
+                                        generate(A, B, C, k + 1, j, m, n, len + 1, !flag);
+                                }
+                        }
+                }
+                else {  
+                        for (int l = j; l < n; l++) {
+                                if (B[l] > C[len]) {
+                                        C[len + 1] = B[l];
+                                        generate(A, B, C, i, l + 1, m, n, len + 1, !flag);
+                                }
+                        }
+                }
+        }
+        public static void printArr(int[] arr, int n) {
+                for (int i = 0; i < n; i++)
+                        System.out.print(arr[i] + " ");
+                System.out.println("");
+        }
+}
+        
